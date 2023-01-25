@@ -28,7 +28,7 @@ public class Client {
             String readInput = "";
 
             while (!readInput.contains("quit")) {
-                readInput = con.readLine("enter 1 for scissors, 2 for paper, 3 for stone\n");
+                readInput = con.readLine("enter 1 for scissors, 2 for paper, 3 for stone or quit to exit\n");
                 dos.writeUTF(readInput);
                 dos.flush();
 
