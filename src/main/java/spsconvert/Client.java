@@ -2,20 +2,20 @@ package spsconvert;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.Console;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
-import java.util.Scanner;
 
 public class Client {
     
     public static void main(String[] args) throws IOException {
         
         Socket socket = new Socket("localhost", 1234);
-        Scanner scanner = new Scanner(System.in);
+        Console con = System.console();
 
         try {
             OutputStream os = socket.getOutputStream();
@@ -28,7 +28,7 @@ public class Client {
             String readInput = "";
 
             while (!readInput.contains("quit")) {
-                readInput = scanner.nextLine();
+                readInput = con.readLine("enter 1 for scissors, 2 for paper, 3 for stone\n");
                 dos.writeUTF(readInput);
                 dos.flush();
 
@@ -41,7 +41,6 @@ public class Client {
             dos.close();
             bos.close();
             os.close();   
-            scanner.close();         
         } catch (Exception e) {
             socket.close();
         }

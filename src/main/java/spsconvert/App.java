@@ -27,13 +27,21 @@ public class App {
             InputStream is = socket.getInputStream();
             BufferedInputStream bis = new BufferedInputStream(is);
             DataInputStream dis = new DataInputStream(bis);
+            int playerChoice = 0;
 
             while (!(line.contains("quit"))) {
                 line = dis.readUTF();
+                if (line.equalsIgnoreCase("quit")) {
+                    System.exit(0);
+                }
                 int computerChoice = sps.generateComputerChoice();
-                dos.writeUTF("enter 1 for scissors, 2 for paper, 3 for stone");
-                dos.flush();
-                int playerChoice = Integer.parseInt(line);
+                try {
+                    playerChoice = Integer.parseInt(line);
+                } catch (Exception e) {
+                    dos.writeUTF("invalid input, integers only!");
+                    dos.flush();
+                    continue;
+                }
 
                 if (!(playerChoice > 0 && playerChoice < 4)) {
                     dos.writeUTF("invalid input, enter number 1 or 2 or 3 ");
